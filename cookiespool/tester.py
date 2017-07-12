@@ -6,6 +6,7 @@ import asyncio
 from bs4 import BeautifulSoup
 
 
+
 class CookiesTester(object):
     def __int__(self,name='default'):
         self.name = name
@@ -30,11 +31,10 @@ class CookiesTester(object):
         except:
             print('异步检测 run() 错误')
 
-
 class WeiboCookiesTester(CookiesTester):
-    def __init__(self, name='weibo'):
+    def __init__(self,name='weibo'):
         CookiesTester.__init__(self,name)
-        self.generator = WeiboCookiesGenerator(name)
+        self.generator = WeiboCookiesGenerator(name=name)
 
     async def test(self, username, cookie):
         """异步检测函数"""
