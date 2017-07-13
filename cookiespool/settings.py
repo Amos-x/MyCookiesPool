@@ -5,7 +5,7 @@ WEB_API_ENABLED = True
 REDIS_HOST = 'localhost'
 # Redis数据库端口
 REDIS_PORT = 6379
-# Redis 密码
+# Redis 密码 ，没有请填 None
 REDIS_PASSWORD = 'wyx379833553'
 # 基础配置信息，无需修改
 REDIS_DOMAIN = '*'

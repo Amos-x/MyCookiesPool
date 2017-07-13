@@ -1,4 +1,6 @@
 from cookiespool.Scheduler import Scheduler
 
-main = Scheduler()
-main.run()
+if __name__ == '__main__':
+    # 启动调度器
+    s = Scheduler()
+    s.run()

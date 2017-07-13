@@ -17,7 +17,7 @@ class CookiesTester(object):
         raise NotImplementedError
 
     def run(self):
-        """检测启动函数"""
+        """主启动函数"""
         id_and_cookie = self.cookies_db.all()
         id_and_cookie = list(id_and_cookie)
         try:
@@ -58,7 +58,4 @@ class WeiboCookiesTester(CookiesTester):
             print('异步检测 test() 错误')
 
 
-if __name__ == '__main__':
-    s = WeiboCookiesTester(name='weibo')
-    s.run()
 

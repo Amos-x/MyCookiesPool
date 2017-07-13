@@ -8,6 +8,7 @@ import time
 class Scheduler(object):
     @staticmethod
     def test_cookies(test_cycle=TEST_CYCLE):
+        """cookie检测器"""
         while True:
             try:
                 for name, classname in COOKIES_TESTER.items():
@@ -22,6 +23,7 @@ class Scheduler(object):
 
     @staticmethod
     def cookie_generator(generator_cycle = GENERATOR_CYCLE):
+        """cookie生成器"""
         while True:
             try:
                 for name,classname in COOKIES_GENERATOR.items():
@@ -52,6 +54,3 @@ class Scheduler(object):
         if WEB_API_ENABLED:
             app.run()
 
-if __name__ == '__main__':
-    r = Scheduler()
-    r.run()

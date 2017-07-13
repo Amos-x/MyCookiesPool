@@ -32,6 +32,7 @@ class CookiesGenerator(object):
             self.cookies_db.set(username, cookie)
 
     def run(self):
+        """主启动函数"""
         all_cookies = list(self.cookies_db.all())
         accounts = self.account_db.all()
         accounts = list(accounts)
@@ -65,6 +66,7 @@ class WeiboCookiesGenerator(CookiesGenerator):
             return
 
     def get_new_cookis(self,username,password):
+        """cookie 获取函数"""
         self.browser.delete_all_cookies()
         self.browser.get('http://my.sina.com.cn/profile/unlogin')
         login_button = self.wait.until(EC.element_to_be_clickable((By.ID, 'hd_login')))
@@ -82,8 +84,5 @@ class WeiboCookiesGenerator(CookiesGenerator):
         print('需要验证码')
         return
 
-if __name__ == '__main__':
-    s = WeiboCookiesGenerator(name="weibo")
-    s.run()
 
 

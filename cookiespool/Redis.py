@@ -124,10 +124,3 @@ class AccountRedisclient(Redisclient):
         return len(self.keys())
 
 
-if __name__ == '__main__':
-    s = AccountRedisclient(name='weibo')
-
-    a = {'username': '18814184409', 'password': 'wyx379833553'}
-    if a in list(s.all()):
-        print('ok')
-    # cookie = ss[0].get('username')
