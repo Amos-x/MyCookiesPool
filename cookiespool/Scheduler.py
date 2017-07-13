@@ -8,16 +8,17 @@ import time
 class Scheduler(object):
     @staticmethod
     def test_cookies(test_cycle=TEST_CYCLE):
-        # while True:
-        try:
-            for name, classname in COOKIES_TESTER.items():
-                print(classname +'循环检测器启动')
-                tester = eval(classname + '(name="'+name+'")')
-                tester.run()
-                del tester
+        while True:
+            try:
+                for name, classname in COOKIES_TESTER.items():
+                    print(classname +'循环检测器启动')
+                    tester = eval(classname + '(name="'+name+'")')
+                    tester.run()
+                    del tester
+                print('检测完成，睡眠一个周期')
                 time.sleep(test_cycle)
-        except:
-            print('循环检测器 错误')
+            except:
+                print('循环检测器 错误')
 
     @staticmethod
     def cookie_generator(generator_cycle = GENERATOR_CYCLE):
@@ -28,7 +29,8 @@ class Scheduler(object):
                     generator = eval(classname + '(name="'+name+'")')
                     generator.run()
                     del generator
-                    time.sleep(generator_cycle)
+                print('生成cookies完成，睡眠一个周期')
+                time.sleep(generator_cycle)
             except:
                 print('循环生成器 错误')
 

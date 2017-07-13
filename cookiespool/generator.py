@@ -11,8 +11,8 @@ class CookiesGenerator(object):
     def __init__(self,name='default',browser_type=DEFAULT_BROWSER):
         self.name = name
         self.browser_type = browser_type
-        self.cookies_db = CookiesRedisclient(self.name)
-        self.account_db = AccountRedisclient(self.name)
+        self.cookies_db = CookiesRedisclient(name=self.name)
+        self.account_db = AccountRedisclient(name=self.name)
 
     def _init_browser(self):
         """初始化浏览器"""
@@ -40,6 +40,7 @@ class CookiesGenerator(object):
             self._init_browser()
             for account in accounts:
                 if not account.get('username') in exist_username:
+                    print('获取cookie:'+account.get('username'))
                     self.set_cookies(account)
             self.browser.close()
             del self.browser

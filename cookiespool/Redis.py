@@ -77,7 +77,7 @@ class CookiesRedisclient(Redisclient):
                     username = group[2]
                     yield {
                         'username': username,
-                        'password': self.get(username)
+                        'cookie': self.get(username)
                     }
         except:
             raise GetAllCookiesError
@@ -125,9 +125,9 @@ class AccountRedisclient(Redisclient):
 
 
 if __name__ == '__main__':
-    s = CookiesRedisclient(name='weibo')
-    print(s.keys())
-    # print(s.get('username'))
-    print(list(s.all()))
-    if not list(s.all()):
-        print('OK')
+    s = AccountRedisclient(name='weibo')
+
+    a = {'username': '18814184409', 'password': 'wyx379833553'}
+    if a in list(s.all()):
+        print('ok')
+    # cookie = ss[0].get('username')

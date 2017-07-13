@@ -44,14 +44,14 @@ class WeiboCookiesTester(CookiesTester):
                 async with session.get('http://weibo.com') as response:
                     if response.status == 200:
                         soup = BeautifulSoup(await response.text(), 'lxml')
-                        sign = soup.select('div.W_person_info')
-                        if not sign:
+                        sign = soup.select('title')[0].get_text()
+                        if not '我的首页' in sign:
                             self.cookies_db.delete(username)
                             account = {
                                 'username': username,
                                 'password': password
                             }
-                            if account in self.account_db.all():
+                            if account in list(self.account_db.all()):
                                 self.generator._init_browser()
                                 self.generator.set_cookies(account)
         except:
@@ -59,6 +59,6 @@ class WeiboCookiesTester(CookiesTester):
 
 
 if __name__ == '__main__':
-    s = WeiboCookiesTester()
-    print(s.name)
+    s = WeiboCookiesTester(name='weibo')
+    s.run()
 
