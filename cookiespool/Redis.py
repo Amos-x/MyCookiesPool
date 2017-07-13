@@ -15,7 +15,7 @@ class Redisclient(object):
         self.name = REDIS_NAME
 
     def _key(self,key):
-        return "{domain}:{name}:{key}".format(domain=self.domainm,name=self.name,key=key)
+        return "{domain}:{name}:{key}".format(domain=self.domain,name=self.name,key=key)
 
     def set(self,key,value):
         raise NotImplementedError
@@ -36,8 +36,8 @@ class Redisclient(object):
 
 class CookiesRedisclient(Redisclient):
 
-    def __init__(self,host=REDIS_HOST,port=REDIS_PORT,password=REDIS_PASSWORD,domain='cookies',name='default'):
-        Redisclient.__init__(self, host, port, password)
+    def __init__(self,domain='cookies',name='default'):
+        Redisclient.__init__(self)
         self.domain = domain
         self.name = name
 
@@ -73,19 +73,18 @@ class CookiesRedisclient(Redisclient):
         try:
             for key in self.keys():
                 group = key.decode('utf-8').split(':')
-                if len(group) ==3:
+                if len(group) == 3:
                     username = group[2]
-                    yield{
-                        'username':username,
-                        'cookie':self.get(username)
+                    yield {
+                        'username': username,
+                        'password': self.get(username)
                     }
-        except Exception as e:
-            print(e.args)
+        except:
             raise GetAllCookiesError
 
 
 class AccountRedisclient(Redisclient):
-    def __init__(self,host=REDIS_HOST,port=REDIS_PORT,password=REDIS_PASSWORD,domain='account',name='default'):
+    def __init__(self,domain='account',name='default'):
         Redisclient.__init__(self)
         self.domain = domain
         self.name = name
@@ -125,5 +124,10 @@ class AccountRedisclient(Redisclient):
         return len(self.keys())
 
 
-
-
+if __name__ == '__main__':
+    s = CookiesRedisclient(name='weibo')
+    print(s.keys())
+    # print(s.get('username'))
+    print(list(s.all()))
+    if not list(s.all()):
+        print('OK')

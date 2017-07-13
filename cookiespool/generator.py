@@ -32,10 +32,10 @@ class CookiesGenerator(object):
             self.cookies_db.set(username, cookie)
 
     def run(self):
-        cookies = self.cookies_db.all()
+        all_cookies = list(self.cookies_db.all())
         accounts = self.account_db.all()
-        exist_username = [cookie.get('username') for cookie in cookies]
         accounts = list(accounts)
+        exist_username = [x.get('username') for x in all_cookies]
         if len(accounts):
             self._init_browser()
             for account in accounts:
@@ -44,7 +44,7 @@ class CookiesGenerator(object):
             self.browser.close()
             del self.browser
         else:
-            print('账号为空，请检查')
+            print('账号为空，不进行cookies生成')
 
 
 class WeiboCookiesGenerator(CookiesGenerator):
@@ -82,6 +82,7 @@ class WeiboCookiesGenerator(CookiesGenerator):
         return
 
 if __name__ == '__main__':
-    s = WeiboCookiesGenerator()
+    s = WeiboCookiesGenerator(name="weibo")
+    s.run()
 
 

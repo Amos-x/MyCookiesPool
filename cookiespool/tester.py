@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 
 class CookiesTester(object):
-    def __int__(self,name='default'):
+    def __init__(self,name='default'):
         self.name = name
         self.cookies_db = CookiesRedisclient(name=self.name)
         self.account_db = AccountRedisclient(name=self.name)

@@ -11,9 +11,8 @@ class Scheduler(object):
         # while True:
         try:
             for name, classname in COOKIES_TESTER.items():
-                print(classname +'循环检测器开启')
-                tester = eval(classname + '(name)')
-                print('tester ok')
+                print(classname +'循环检测器启动')
+                tester = eval(classname + '(name="'+name+'")')
                 tester.run()
                 del tester
                 time.sleep(test_cycle)
@@ -25,9 +24,8 @@ class Scheduler(object):
         while True:
             try:
                 for name,classname in COOKIES_GENERATOR.items():
-                    print(classname +'循环生成器开启')
-                    generator = eval(classname + '(name)')
-                    print('generator ok')
+                    print(classname +'循环生成器启动')
+                    generator = eval(classname + '(name="'+name+'")')
                     generator.run()
                     del generator
                     time.sleep(generator_cycle)
@@ -53,6 +51,5 @@ class Scheduler(object):
             app.run()
 
 if __name__ == '__main__':
-
     r = Scheduler()
     r.run()

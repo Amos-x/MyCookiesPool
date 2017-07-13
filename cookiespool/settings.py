@@ -20,11 +20,13 @@ TEST_CYCLE = 300
 GENERATOR_CYCLE = 1600
 
 # Cookies 生成器，格式为： name : classname
+# 注释掉即不开启生成器
 COOKIES_GENERATOR = {
     'weibo':'WeiboCookiesGenerator'
 }
 
 # Cookies 测试器,格式同上： name: classname
+# 注释掉即不开启检测器
 COOKIES_TESTER = {
     'weibo':'WeiboCookiesTester'
 }
