@@ -2,7 +2,8 @@
 
 利用redis数据库维护的一个cookies池，实现账号的模拟登录，获取cookies，异步检测cookie是否可用并更新cookie
 利用Flask作为web_api，便于远程获取cookie，方便使用cookies池。（可自行添加所需功能）
-可自行添加 generator.py中的cookie生成器，同时实现多个网站的模拟登录，获取cookies (目前还没添加验证码验证模块和方案，之后再完善补充)
+可自行添加 generator.py中的cookie生成器，同时实现多个网站的模拟登录，获取cookies
+在tool.py中新增了一个手动输入验证码的弹窗，可用于生成器的验证码识别，只适用于小量账号登录的测试。
 可自信添加 tester.py中的cookie检测器，同时实现对多个网站cookie的检测
 
 使用方法：
