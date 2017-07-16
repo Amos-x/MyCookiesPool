@@ -35,6 +35,7 @@ class CookiesGenerator(object):
                 if not account.get('username') in exist_username:
                     print('获取cookie:'+account.get('username'))
                     self.set_cookies(account)
+            self.browser.quit()
         else:
             print('账号为空，不进行cookies生成')
 
@@ -47,7 +48,9 @@ class WeiboCookiesGenerator(CookiesGenerator):
         #初始化浏览器
         self.browser_type = browser_type
         if self.browser_type == 'PhantomJS':
-            pass
+            service_args = ['--debug=[true]','--disk-cache=[true]']
+            self.browser = webdriver.PhantomJS()
+            self.browser.maximize_window()
         elif self.browser_type =='Chrome':
             self.browser = webdriver.Chrome()
         self.wait = WebDriverWait(self.browser, 10)
@@ -69,10 +72,10 @@ class WeiboCookiesGenerator(CookiesGenerator):
         error_msg = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'p.login_error_tips')))
         if error_msg.text == '请输入验证码':
             captcha_img = self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'img.yzm')))
-            self.browser.save_screenshot('web.png')
+            self.browser.save_screenshot('../captcha_image/web.png')
             img = Image.open('web.png')
             im = img.crop((440, 450, 530, 490))  # 这里输入验证码的坐标区域进行截图剪裁，原有的是随意填写的，以实际情况为准。
-            im.save('captcha.png')
+            im.save('../captcha_image/captcha.png')
             self.captcha_deal.run(im)
             return self.captcha_deal.captcha
         else:
@@ -110,4 +113,5 @@ class WeiboCookiesGenerator(CookiesGenerator):
             return
 
 if __name__ == '__main__':
-    pass
+    s = WeiboCookiesGenerator()
+    s.run()

@@ -12,7 +12,7 @@ REDIS_DOMAIN = '*'
 REDIS_NAME = '*'
 
 # cookie生成器默认使用的浏览器
-DEFAULT_BROWSER = 'Chrome'
+DEFAULT_BROWSER = 'PhantomJS'
 
 # cookie测试周期
 TEST_CYCLE = 300
