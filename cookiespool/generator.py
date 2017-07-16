@@ -42,6 +42,8 @@ class CookiesGenerator(object):
 class WeiboCookiesGenerator(CookiesGenerator):
     def __init__(self,name='weibo',browser_type=DEFAULT_BROWSER):
         CookiesGenerator.__init__(self, name)
+        # 加了一个手动识别验证码的弹窗，只由于少量cookies测试时。
+        self.captcha_deal = Captcha_By_Hand()
         #初始化浏览器
         self.browser_type = browser_type
         if self.browser_type == 'PhantomJS':
@@ -63,6 +65,20 @@ class WeiboCookiesGenerator(CookiesGenerator):
         except TimeoutException:
             return
 
+    def _get_captcha(self):
+        error_msg = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'p.login_error_tips')))
+        if error_msg.text == '请输入验证码':
+            captcha_img = self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'img.yzm')))
+            self.browser.save_screenshot('web.png')
+            img = Image.open('web.png')
+            im = img.crop((440, 450, 530, 490))  # 这里输入验证码的坐标区域进行截图剪裁，原有的是随意填写的，以实际情况为准。
+            im.save('captcha.png')
+            self.captcha_deal.run(im)
+            return self.captcha_deal.captcha
+        else:
+            print(error_msg.text)
+            return
+
     def get_new_cookis(self,username,password):
         """cookie 获取函数"""
         try:
@@ -79,20 +95,19 @@ class WeiboCookiesGenerator(CookiesGenerator):
             result = self._login_isok(username)
             if result:
                 return result
-            # 加了一个手动识别验证码的弹窗，只由于少量cookies测试时。
-            print('需要验证码')
-            captcha_img = self.wait(EC.visibility_of_element_located((By.CSS_SELECTOR, 'img.yzm')))
-            self.browser.save_screenshot('yzm.png')
-            img = Image.open('yzm.png')
-            img.show()
-            s = Captcha_By_Hand()
-            s.run(img=img)
-            print(s.captcha)
+            captcha = self._get_captcha()
+            # 由于本人并没实际使用多帐号进行测试，始终没有模拟出让我输入验证码的情况，
+            # 所以下面的验证码输入窗口，没法捕获，请使用者根据实际情况自行完善。
+            if captcha:
+                captcha_input = self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, '自行填写')))
+                captcha_input.send_keys(captcha)
+                button.click()
+                return self._login_isok(username)
+            else:
+                return
         except:
-            print('登录错误，可能次数过多，被限制登录')
-
-
-
+            print('获取验证码出错')
+            return
 
 if __name__ == '__main__':
     pass
