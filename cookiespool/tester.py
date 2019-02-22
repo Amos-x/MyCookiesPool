@@ -6,7 +6,6 @@ import asyncio
 from bs4 import BeautifulSoup
 
 
-
 class CookiesTester(object):
     def __init__(self,name='default'):
         self.name = name
@@ -30,6 +29,7 @@ class CookiesTester(object):
                 print('cookies为空，睡眠一个周期')
         except:
             print('异步检测 run() 错误')
+
 
 class WeiboCookiesTester(CookiesTester):
     def __init__(self,name='weibo'):

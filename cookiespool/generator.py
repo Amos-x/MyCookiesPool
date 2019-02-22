@@ -112,6 +112,7 @@ class WeiboCookiesGenerator(CookiesGenerator):
             print('获取验证码出错')
             return
 
+
 if __name__ == '__main__':
     s = WeiboCookiesGenerator()
     s.run()

@@ -3,10 +3,12 @@ from cookiespool.Redis import CookiesRedisclient,AccountRedisclient
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home_page():
     """首页"""
     return '<h2>Welcome To My CookiesPool</h2>'
+
 
 @app.route('/<name>/get')
 def get(name):

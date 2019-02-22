@@ -5,6 +5,7 @@ from cookiespool.web_api import app
 from multiprocessing import Process
 import time
 
+
 class Scheduler(object):
     @staticmethod
     def test_cookies(test_cycle=TEST_CYCLE):
@@ -53,4 +54,3 @@ class Scheduler(object):
 
         if WEB_API_ENABLED:
             app.run()
-

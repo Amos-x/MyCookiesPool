@@ -1,6 +1,7 @@
 from PIL import Image,ImageTk
 import tkinter as tk
 
+
 class Captcha_By_Hand(object):
     """一个手动输入验证码的弹窗，用与少量登录时"""
     def callback(self):
